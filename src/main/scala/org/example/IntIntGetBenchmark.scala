@@ -10,18 +10,18 @@ import collection.immutable.IntMap
 
 // a caliper benchmark is a class that extends com.google.caliper.Benchmark
 // the SimpleScalaBenchmark trait does it and also adds some convenience functionality
-class Benchmark extends SimpleScalaBenchmark with IntData{
+class IntIntGetBenchmark extends SimpleScalaBenchmark with IntData {
   
   // to make your benchmark depend on one or more parameterized values, create fields with the name you want
   // the parameter to be known by, and add this annotation (see @Param javadocs for more details)
   // caliper will inject the respective value at runtime and make sure to run all combinations 
-  @Param(Array("100000")) // "100000", "1000000", "10000000"))
+  @Param(Array("1000000")) // "100000", "1000000", "10000000")) // in practice, we tend to hang (OOM?) after 100,000 elements. What's up with that?
   val length: Int = 0
-
 
   override def setUp() {
     setUp(length)
   }
+
 
   /**
    * The actual tests.
@@ -32,16 +32,16 @@ class Benchmark extends SimpleScalaBenchmark with IntData{
    * So, we're back to the copy-and-paste
    *
    */
-
   def timeTrove2(reps: Int) = repeat(reps) {
     val map = new TIntIntHashMap()
     var result = 0
     tfor(0)(_ < dataset.size(), _ + 1) { i =>
-      map.put(i, i);
+      map.put(i, i * i);
       result += i
     }
     tfor(0)(_ < dataset.size(), _ + 1) { i =>
       result += map.get(i)
+//      result += map.get(i + 1)
     }
     tfor(0)(_ < dataset.size(), _ + 1) { i =>
       map.put(i, 123)
@@ -299,5 +299,35 @@ class Benchmark extends SimpleScalaBenchmark with IntData{
 
 }
 
+
+trait IntData {
+
+  // yes, it's just a list of numbers. But they're proper java.lang.Integers.
+  val dataset: java.util.List[java.lang.Integer] = new ArrayList[java.lang.Integer]()
+
+  def initializeData(length: Int) {
+    0 to (length-1) foreach { i : Int =>
+      val in : java.lang.Integer = i
+      dataset.add(in)
+    }
+  }
+
+    // our preallocated candidates
+  var trove2Prealloc = new TIntIntHashMap();
+  var trove3Prealloc   = new T3TIntIntHashMap()
+  var coltPrealloc  = new OpenIntIntHashMap();
+  var pcoltPrealloc  = new cern.colt.map.tint.OpenIntIntHashMap();
+
+
+  def setUp(length: Int) {
+    // set up all your benchmark data here
+    initializeData(length)
+
+    trove2Prealloc  = new TIntIntHashMap(length);
+    trove3Prealloc  = new T3TIntIntHashMap(length)
+    coltPrealloc    = new OpenIntIntHashMap(length);
+    pcoltPrealloc   = new cern.colt.map.tint.OpenIntIntHashMap(length);
+  }
+}
 
 
