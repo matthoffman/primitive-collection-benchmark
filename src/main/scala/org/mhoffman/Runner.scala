@@ -10,10 +10,12 @@ object Runner {
     // we simply pass in the CLI args,
     // we could of course also just pass hardcoded arguments to the caliper Runner
     println("Running with args "+ args.mkString(","))
-    println("Next, running the Long,Object benchmark")
+
+//    println("Running the Int,Int benchmark")
+//    CaliperRunner.main(classOf[IntIntBenchmark], args)
+
+    println("Running the Long,Object benchmark")
     CaliperRunner.main(classOf[LongObjectBenchmark], args)
-    println("First, running the Int,Int benchmark")
-    CaliperRunner.main(classOf[IntIntBenchmark], args)
   }
   
 }

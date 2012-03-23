@@ -58,7 +58,7 @@ class LongObjectBenchmark extends SimpleScalaBenchmark with LongData with Object
     var result : Long = 0
     tfor(0)(_ < longdata.size(), _ + 1) {
       i =>
-        map.put(i, objdata.get(i));
+        map.put(i, objdata.get(i))
         result += i
     }
     tfor(0)(_ < longdata.size(), _ + 1) {
@@ -79,7 +79,7 @@ class LongObjectBenchmark extends SimpleScalaBenchmark with LongData with Object
     var result : Long = 0
     tfor(0)(_ < longdata.size(), _ + 1) {
       i =>
-        map.put(i, objdata.get(i));
+        map.put(i, objdata.get(i))
         result += i
     }
     tfor(0)(_ < longdata.size(), _ + 1) {
@@ -102,7 +102,7 @@ class LongObjectBenchmark extends SimpleScalaBenchmark with LongData with Object
     var result : Long = 0
     tfor(0)(_ < longdata.size(), _ + 1) {
       i =>
-        map.put(i, objdata.get(i));
+        map.put(i, objdata.get(i))
         result += i
     }
     tfor(0)(_ < longdata.size(), _ + 1) {
@@ -124,7 +124,7 @@ class LongObjectBenchmark extends SimpleScalaBenchmark with LongData with Object
     var result : Long = 0
     tfor(0)(_ < longdata.size(), _ + 1) {
       i =>
-        map.put(i, objdata.get(i));
+        map.put(i, objdata.get(i))
         result += i
     }
     tfor(0)(_ < longdata.size(), _ + 1) {
@@ -146,7 +146,7 @@ class LongObjectBenchmark extends SimpleScalaBenchmark with LongData with Object
     var result : Long = 0
     tfor(0)(_ < longdata.size(), _ + 1) {
       i =>
-        map.put(i, objdata.get(i));
+        map.put(i, objdata.get(i))
         result += i
     }
     tfor(0)(_ < longdata.size(), _ + 1) {
@@ -169,7 +169,7 @@ class LongObjectBenchmark extends SimpleScalaBenchmark with LongData with Object
     var result : Long = 0
     tfor(0)(_ < longdata.size(), _ + 1) {
       i =>
-        map.put(i, objdata.get(i));
+        map.put(i, objdata.get(i))
         result += i
     }
     tfor(0)(_ < longdata.size(), _ + 1) {
@@ -192,7 +192,7 @@ class LongObjectBenchmark extends SimpleScalaBenchmark with LongData with Object
     var result : Long = 0
     tfor(0)(_ < longdata.size(), _ + 1) {
       i =>
-        map.put(i, objdata.get(i));
+        map.put(i, objdata.get(i))
         result += i
     }
     tfor(0)(_ < longdata.size(), _ + 1) {
@@ -215,7 +215,7 @@ class LongObjectBenchmark extends SimpleScalaBenchmark with LongData with Object
     var result : Long = 0
     tfor(0)(_ < longdata.size(), _ + 1) {
       i =>
-        map.put(i, objdata.get(i));
+        map.put(i, objdata.get(i))
         result += i
     }
     tfor(0)(_ < longdata.size(), _ + 1) {
@@ -286,7 +286,7 @@ class LongObjectBenchmark extends SimpleScalaBenchmark with LongData with Object
 
     tfor(0)(_ < longdata.size(), _ + 1) {
       i =>
-        map.put(i, new TestObj(i));
+        map.put(i, objdata.get(i))
         result += i
     }
     tfor(0)(_ < longdata.size(), _ + 1) {
@@ -297,7 +297,7 @@ class LongObjectBenchmark extends SimpleScalaBenchmark with LongData with Object
     }
     tfor(0)(_ < longdata.size(), _ + 1) {
       i =>
-        map.put(i, new TestObj(123))
+        map.put(i, objdata.get(123))
         result += i
     }
     // the value of result doesn't matter...it's just there so that Hotspot doesn't optimize away our useless loops
@@ -314,7 +314,7 @@ class LongObjectBenchmark extends SimpleScalaBenchmark with LongData with Object
     var result : Long = 0
     tfor(0)(_ < longdata.size(), _ + 1) {
       i =>
-        map(i) = new TestObj(i);
+        map(i) = objdata.get(i)
         result += i
     }
     tfor(0)(_ < longdata.size(), _ + 1) {
@@ -323,7 +323,7 @@ class LongObjectBenchmark extends SimpleScalaBenchmark with LongData with Object
     }
     tfor(0)(_ < longdata.size(), _ + 1) {
       i =>
-        map(i) = new TestObj(123)
+        map(i) = objdata.get(123)
         result += i
     }
     // the value of result doesn't matter...it's just there so that Hotspot doesn't optimize away our useless loops
