@@ -306,6 +306,9 @@ trait IntData {
   val dataset: java.util.List[java.lang.Integer] = new ArrayList[java.lang.Integer]()
 
   def initializeData(length: Int) {
+    // this would be much prettier as a Map, but it's a Java collection, and this is easier.
+    // the JavaConversion implicits mainly wrap Scala collections in wrappers that implement Java
+    // interfaces, which isn't what we want.
     0 to (length-1) foreach { i : Int =>
       val in : java.lang.Integer = i
       dataset.add(in)
@@ -329,5 +332,6 @@ trait IntData {
     pcoltPrealloc   = new cern.colt.map.tint.OpenIntIntHashMap(length);
   }
 }
+
 
 
