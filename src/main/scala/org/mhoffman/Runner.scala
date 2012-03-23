@@ -11,11 +11,11 @@ object Runner {
     // we could of course also just pass hardcoded arguments to the caliper Runner
     println("Running with args "+ args.mkString(","))
 
-//    println("Running the Int,Int benchmark")
-//    CaliperRunner.main(classOf[IntIntBenchmark], args)
+    println("Running the Int,Int benchmark")
+    CaliperRunner.main(classOf[IntIntBenchmark], args)
 
-    println("Running the Long,Object benchmark")
-    CaliperRunner.main(classOf[LongObjectBenchmark], args)
+//    println("Running the Long,Object benchmark")
+//    CaliperRunner.main(classOf[LongObjectBenchmark], args)
   }
   
 }

@@ -46,6 +46,8 @@ A few notes about the contenders in these benchmarks:
 
 That happens before the test, so since those collections had already internally allocated arrays of the appropriate length, they didn't have to allocate much of anything during the test. So it's not that the *Prealloc examples occupied less memory, it's just that they allocated less memory over the duration of the test.
 
+* Mahout is a fork of the Colt library, hosted by the [Apache Mahout][5] project.
+* [Parallel Colt][6] is a fork of the Colt library with the addition of parallelizable collections. This test is not taking advantage of any parallel capabilities.
 * The "array" entries are just that: a vanilla java array ( int[] or Object[]). Obviously, that's a very different thing than a map. I put that in for two reasons:
 ** primarily, it gives you an idea of the lower bound Ð i.e., the most efficient possible way (that i know of) to store a collection of primitives in Java. So it gives you an idea of where the floor is.
 ** secondarily, these particularly simple artificial benchmarks are just iterating from 0-100,000 and inserting i > i or i>TestObject into maps. That particular use case is clearly better implemented with an array in real life, so I was curious what kind of benefit I could expect from actually using an array in this situation.
@@ -55,195 +57,24 @@ That happens before the test, so since those collections had already internally 
 
 
 ### Results (as of latest checkin):
+Int -> Int map test:
 
 
-<table>
-    <tbody>
-      <tr>
-        <th>benchmark</th>
-        <th>instances</th>
-        <th>Bytes</th>
-        <th>ms</th>
-        <th>linear runtime</th>
-      </tr>
-      <tr>
-        <td>Trove2</td>
-        <td>54.00</td>
-        <td>3703888</td>
-        <td>10.60</td>
-        <td>=</td>
-      </tr>
-      <tr>
-        <td>Trove2Prealloc</td>
-        <td>10.00</td>
-        <td>184</td>
-        <td>8.38</td>
-        <td>=</td>
-      </tr>
-      <tr>
-        <td>Trove3</td>
-        <td>53.00</td>
-        <td>3703872</td>
-        <td>9.04</td>
-        <td>=</td>
-      </tr>
-      <tr>
-        <td>Trove3Prealloc</td>
-        <td>10.00</td>
-        <td>184</td>
-        <td>7.10</td>
-        <td>=</td>
-      </tr>
-      <tr>
-        <td>Colt</td>
-        <td>47.00</td>
-        <td>5553768</td>
-        <td>13.17</td>
-        <td>=</td>
-      </tr>
-      <tr>
-        <td>ColtPrealloc</td>
-        <td>10.00</td>
-        <td>184</td>
-        <td>9.33</td>
-        <td>=</td>
-      </tr>
-      <tr>
-        <td>PColt</td>
-        <td>47.00</td>
-        <td>5553768</td>
-        <td>13.40</td>
-        <td>==</td>
-      </tr>
-      <tr>
-        <td>PColtPrealloc</td>
-        <td>10.00</td>
-        <td>184</td>
-        <td>9.06</td>
-        <td>=</td>
-      </tr>
-      <tr>
-        <td>ScalaDefault</td>
-        <td>2652797.00</td>
-        <td>128829464</td>
-        <td>200.05</td>
-        <td>==============================</td>
-      </tr>
-      <tr>
-        <td>ScalaMutable</td>
-        <td>999516.00</td>
-        <td>20489384</td>
-        <td>37.67</td>
-        <td>=====</td>
-      </tr>
-      <tr>
-        <td>ScalaIntMap</td>
-        <td>3407644.00</td>
-        <td>97850584</td>
-        <td>91.55</td>
-        <td>=============</td>
-      </tr>
-      <tr>
-        <td>JavaHashMap</td>
-        <td>499515.00</td>
-        <td>11689384</td>
-        <td>19.44</td>
-        <td>==</td>
-      </tr>
-      <tr>
-        <td>IntArray</td>
-        <td>12.00</td>
-        <td>400216</td>
-        <td>4.62</td>
-        <td>=</td>
-      </tr>
-  </tbody>
-</table>
 
+Long -> Object map test:
 
-Long->Object map benchmark
-
-<table>
-    <tbody>
-      <tr>
-        <th>benchmark</th>
-        <th>instances</th>
-        <th>Bytes</th>
-        <th>ms</th>
-        <th>linear runtime</th>
-      </tr>
-      <tr>
-        <td>Trove2</td>
-        <td>54.00</td>
-        <td>5349528</td>
-        <td>13.21</td>
-        <td>=========================</td>
-      </tr>
-      <tr>
-        <td>Trove2Prealloc</td>
-        <td>10.00</td>
-        <td>192</td>
-        <td>9.95</td>
-        <td>===================</td>
-      </tr>
-      <tr>
-        <td>Trove3</td>
-        <td>54.00</td>
-        <td>5349544</td>
-        <td>11.12</td>
-        <td>=====================</td>
-      </tr>
-      <tr>
-        <td>Trove3Prealloc</td>
-        <td>10.00</td>
-        <td>192</td>
-        <td>8.10</td>
-        <td>===============</td>
-      </tr>
-      <tr>
-        <td>Colt</td>
-        <td>47.00</td>
-        <td>8021648</td>
-        <td>15.65</td>
-        <td>==============================</td>
-      </tr>
-      <tr>
-        <td>ColtPrealloc</td>
-        <td>10.00</td>
-        <td>192</td>
-        <td>9.90</td>
-        <td>==================</td>
-      </tr>
-      <tr>
-        <td>PColt</td>
-        <td>47.00</td>
-        <td>8021648</td>
-        <td>15.63</td>
-        <td>=============================</td>
-      </tr>
-      <tr>
-        <td>PColtPrealloc</td>
-        <td>10.00</td>
-        <td>192</td>
-        <td>10.48</td>
-        <td>====================</td>
-      </tr>
-      <tr>
-        <td>JavaHashMap</td>
-        <td>599642.00</td>
-        <td>17288352</td>
-        <td>15.39</td>
-        <td>=============================</td>
-      </tr>
-      <tr>
-        <td>ObjArray</td>
-        <td>200012.00</td>
-        <td>5200224</td>
-        <td>6.35</td>
-        <td>============</td>
-      </tr>
-    </tbody>
-</table>
+    [info]      benchmark instances        B    ms linear runtime
+    [info]         Trove2     54.00  5349528 13.19 =====================
+    [info] Trove2Prealloc     10.00      192 10.27 ================
+    [info]         Trove3     54.00  5349544 11.33 ==================
+    [info] Trove3Prealloc     10.00      192  8.39 =============
+    [info]         Mahout     47.00  8021648 15.86 =========================
+    [info]           Colt     47.00  8021648 15.69 ========================
+    [info]   ColtPrealloc     10.00      192  9.77 ===============
+    [info]          PColt     47.00  8021648 15.72 =========================
+    [info]  PColtPrealloc     10.00      192  9.81 ===============
+    [info]    JavaHashMap 399642.00 12488352 18.84 ==============================
+    [info]       ObjArray     12.00   400224  5.54 ========
 
 
 Note that the primitive collections require almost no object allocation Ð they don't use HashMap$Entry wrapper objects
@@ -308,5 +139,6 @@ Check out github.com/ngerhart/scala-benchmarking-template.git my-benchmark
   [2]: http://wikis.sun.com/display/HotSpotInternals/MicroBenchmarks
   [3]: http://github.com/ngerhart/scala-benchmarking-template
   [4]: https://github.com/harrah/xsbt
-
+  [5]: http://mahout.apache.org/
+  [6]: http://sites.google.com/site/piotrwendykier/software/parallelcolt
 

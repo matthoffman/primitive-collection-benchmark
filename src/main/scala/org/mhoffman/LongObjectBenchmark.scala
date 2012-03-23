@@ -6,6 +6,8 @@ import cern.colt.map.OpenLongObjectHashMap
 import gnu.trove.TLongObjectHashMap
 import cern.colt.map.tobject.{OpenLongObjectHashMap => POpenLongObjectHashMap}
 import java.util.ArrayList
+import org.apache.mahout.math.map.{OpenLongObjectHashMap => MOpenLongObjectHashMap}
+
 
 // a caliper benchmark is a class that extends com.google.caliper.Benchmark
 // the SimpleScalaBenchmark trait does it and also adds some convenience functionality
@@ -121,6 +123,29 @@ class LongObjectBenchmark extends SimpleScalaBenchmark with LongData with Object
 
   def timeTrove3Prealloc(reps: Int) = repeat(reps) {
     val map = trove3Prealloc
+    var result : Long = 0
+    tfor(0)(_ < longdata.size(), _ + 1) {
+      i =>
+        map.put(i, objdata.get(i))
+        result += i
+    }
+    tfor(0)(_ < longdata.size(), _ + 1) {
+      i =>
+        result += map.get(i).value
+      //      result += map.get(i + 1)
+    }
+    tfor(0)(_ < longdata.size(), _ + 1) {
+      i =>
+        map.put(i, objdata.get(123))
+        result += i
+    }
+    // the value of result doesn't matter...it's just there so that Hotspot doesn't optimize away our useless loops
+    result
+  }
+
+
+  def timeMahout(reps: Int) = repeat(reps) {
+    val map = new MOpenLongObjectHashMap[TestObj]()
     var result : Long = 0
     tfor(0)(_ < longdata.size(), _ + 1) {
       i =>

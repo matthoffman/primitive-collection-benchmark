@@ -6,6 +6,7 @@ import java.util.ArrayList
 import gnu.trove.TIntIntHashMap
 import gnu.trove.map.hash.{TIntIntHashMap => T3TIntIntHashMap}
 import cern.colt.map.OpenIntIntHashMap
+import org.apache.mahout.math.map.{OpenIntIntHashMap => MOpenIntIntHashMap}
 import collection.immutable.IntMap
 
 // a caliper benchmark is a class that extends com.google.caliper.Benchmark
@@ -99,7 +100,26 @@ class IntIntBenchmark extends SimpleScalaBenchmark with IntData {
     }
     tfor(0)(_ < dataset.size(), _ + 1) { i =>
       result += map.get(i)
-//      result += map.get(i + 1)
+      //      result += map.get(i + 1)
+    }
+    tfor(0)(_ < dataset.size(), _ + 1) { i =>
+      map.put(i, 123)
+      result += i
+    }
+    // the value of result doesn't matter...it's just there so that Hotspot doesn't optimize away our useless loops
+    result
+  }
+
+  def timeMahout(reps: Int) = repeat(reps) {
+    val map = new MOpenIntIntHashMap()
+    var result = 0
+    tfor(0)(_ < dataset.size(), _ + 1) { i =>
+      map.put(i, i);
+      result += i
+    }
+    tfor(0)(_ < dataset.size(), _ + 1) { i =>
+      result += map.get(i)
+      //      result += map.get(i + 1)
     }
     tfor(0)(_ < dataset.size(), _ + 1) { i =>
       map.put(i, 123)
