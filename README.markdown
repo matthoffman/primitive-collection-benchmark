@@ -1,4 +1,13 @@
-### Scala Micro-Benchmarking Template ###
+### Quick Collections Microbenchmark ###
+
+This test, based on the [Scala Micro-Benchmarking Template][3], performs some quick-and-dirty microbenchmarks involving
+map operations with various collection classes.
+
+
+
+
+
+### Original README of the [Scala Micro-Benchmarking Template][3]:
   
 This is an SBT template project for creating micro benchmarks for scala code snippets.
 It's not much more than a simple wrapper around [Caliper][1], an open-source library for properly
@@ -44,6 +53,7 @@ In order to run your own benchmark code simply replace the respectively marked c
 
   [1]: http://code.google.com/p/caliper/
   [2]: http://wikis.sun.com/display/HotSpotInternals/MicroBenchmarks
+  [3]: http://github.com/ngerhart/scala-benchmarking-template
 
 #### Note
 

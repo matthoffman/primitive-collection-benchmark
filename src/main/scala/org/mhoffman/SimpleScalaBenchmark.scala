@@ -1,4 +1,4 @@
-package org.example
+package org.mhoffman
 
 import com.google.caliper.SimpleBenchmark
 import annotation.tailrec

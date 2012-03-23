@@ -1,4 +1,4 @@
-package org.example
+package org.mhoffman
 
 import com.google.caliper.Param
 import gnu.trove.map.hash.{TLongObjectHashMap => T3TLongObjectHashMap}

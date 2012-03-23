@@ -1,4 +1,4 @@
-package org.example
+package org.mhoffman
 
 import com.google.caliper.{Runner => CaliperRunner}
 
@@ -13,7 +13,7 @@ object Runner {
     println("Next, running the Long,Object benchmark")
     CaliperRunner.main(classOf[LongObjectBenchmark], args)
     println("First, running the Int,Int benchmark")
-    CaliperRunner.main(classOf[Benchmark], args)
+    CaliperRunner.main(classOf[IntIntBenchmark], args)
   }
   
 }
