@@ -59,6 +59,21 @@ That happens before the test, so since those collections had already internally 
 ### Results (as of latest checkin):
 Int -> Int map test:
 
+    [info]      benchmark  instances         B     ms linear runtime
+    [info]         Trove2      54.00   3703888  10.71 =
+    [info] Trove2Prealloc      10.00       184   8.46 =
+    [info]         Trove3      53.00   3703872   9.14 =
+    [info] Trove3Prealloc      10.00       184   7.05 =
+    [info]         Mahout      47.00   5553768  13.29 =
+    [info]           Colt      47.00   5553768  13.13 =
+    [info]   ColtPrealloc      10.00       184   8.91 =
+    [info]          PColt      47.00   5553768  13.13 =
+    [info]  PColtPrealloc      10.00       184   8.83 =
+    [info]   ScalaDefault 2652797.00 128829464 202.77 ==============================
+    [info]   ScalaMutable  999516.00  20489384  37.56 =====
+    [info]    ScalaIntMap 3407644.00  97850584  92.00 =============
+    [info]    JavaHashMap  499515.00  11689384  20.37 ===
+    [info]       IntArray      12.00    400216   4.71 =
 
 
 Long -> Object map test:
@@ -119,7 +134,7 @@ already worked around that for me.
 3.) Similarly, I started out by writing the boilerplate test method only once, then passing in a closure that does the putting and getting. However, the closure itself added enough overhead that I thought it more prudent to just copy-and-paste the test methods. Yes, its painful to have all that very repeated, very similar code, but it's worth it to have a valid test.
 
 
-### Original README of the [Scala Micro-Benchmarking Template][3]:
+### Original README of the [Scala Micro-Benchmarking Template][3], abbreviated:
   
 This is an SBT template project for creating micro benchmarks for scala code snippets.
 It's not much more than a simple wrapper around [Caliper][1], an open-source library for properly
